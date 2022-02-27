@@ -1,0 +1,16 @@
+﻿<Window x:Class="EmployeeMonitoring.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeMonitoring"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="Shesvla" Content="Shesvla" HorizontalAlignment="Left" Margin="151,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FF28B925" Click="Shesvla_Click"/>
+        <Button x:Name="Gasvla" Content="Gasvla" HorizontalAlignment="Left" Margin="473,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FFC52323"/>
+        <Label Content="Emploee: " HorizontalAlignment="Left" Margin="195,99,0,0" VerticalAlignment="Top" Height="48" Width="82" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <TextBox x:Name="txtbox" HorizontalAlignment="Left" Margin="311,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="23" RenderTransformOrigin="0.502,3.325" TextAlignment="Justify" FontSize="16" Text="" FontWeight="Normal"/>
+
+    </Grid>
+</Window>
