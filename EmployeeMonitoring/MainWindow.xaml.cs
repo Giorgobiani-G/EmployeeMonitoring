@@ -23,22 +23,49 @@ namespace EmployeeMonitoring
     public partial class MainWindow : Window
     {
         private readonly EmpContext context;
-        public MainWindow(EmpContext empContext)
+
+
+        public MainWindow()
         {
             InitializeComponent();
-            context = empContext;
+            context = new EmpContext();
         }
 
-        private void Gasvla_Click(object sender, RoutedEventArgs e)
-        {
+       
 
+        private async void Shesvla_Click(object sender, RoutedEventArgs e)
+        {
+            EmpModel emp = new EmpModel
+            {
+                Saxeli = txtbox.Text,
+                ShesvlisDro = DateTime.Now
+                 
+            };
+
+            var gasvlisdro = from db in context.MyProperty
+                             where db.Saxeli == emp.Saxeli
+                             select new{ db.WasvlisDro };
+              
+            
+          int dagvianeba =  DateTime.Compare((DateTime)emp.ShesvlisDro, DateTime.Parse("09:14"));
+
+            if (dagvianeba > 0 && gasvlisdro is null)
+            {
+              emp.GacceniliSaatebi =  emp.ShesvlisDro.Value.Subtract(DateTime.Parse("09:00")).TotalHours;
+            }
+            _ = await context.AddAsync(emp);
+            _ = await context.SaveChangesAsync();
         }
 
-        private void Shesvla_Click(object sender, RoutedEventArgs e)
+        private async void Gasvla_Click_1(object sender, RoutedEventArgs e)
         {
-            EmpModel empModel = new EmpModel();
-            empModel.Saxeli = txtbox.Text;
-          
+            EmpModel emp = new EmpModel
+            {
+                Saxeli = txtbox.Text,
+                WasvlisDro = DateTime.Now
+            };
+            _ = await context.AddAsync(emp);
+            _ = await context.SaveChangesAsync();
         }
     }
 }

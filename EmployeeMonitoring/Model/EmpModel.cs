@@ -15,13 +15,14 @@ namespace EmployeeMonitoring.Model
         [Key]
         public int Id { get; set; }
         public string Saxeli { get; set; }
-        public DateTime ShesvlisDro { get; private set; }
+        public DateTime? ShesvlisDro { get; set; }
 
-        public DateTime WasvlisDro { get; set; }
+        public DateTime? WasvlisDro { get; set; }
 
-        public int GacceniliSaatebi { get; set; }
+        public double? GacceniliSaatebi { get; set; }
 
 
+       
 
     }
 }
