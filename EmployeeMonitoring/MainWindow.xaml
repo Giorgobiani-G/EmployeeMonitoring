@@ -10,6 +10,7 @@
         <Button x:Name="Gasvla" Content="Gasvla" HorizontalAlignment="Left" Margin="473,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FFC52323" Click="Gasvla_Click_1"/>
         <Label Content="Emploee: " HorizontalAlignment="Left" Margin="195,99,0,0" VerticalAlignment="Top" Height="48" Width="82" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <TextBox x:Name="txtbox" HorizontalAlignment="Left" Margin="311,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="23" RenderTransformOrigin="0.502,3.325" TextAlignment="Justify" FontSize="16" Text="" FontWeight="Normal"/>
+        <TextBox x:Name="inouttextbox" HorizontalAlignment="Left" Margin="360,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Height="21" BorderBrush="White"/>
 
     </Grid>
 </Window>
