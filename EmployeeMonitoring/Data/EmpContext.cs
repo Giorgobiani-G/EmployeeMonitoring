@@ -4,12 +4,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EmployeeMonitoring.Data
 {
    public class EmpContext : DbContext
     {
+
+        //static int counter = 0;
+
+        //public EmpContext()
+        //{
+        //    Interlocked.Increment(ref counter);
+        //}
+
+        //~EmpContext() 
+        //{
+        //    Interlocked.Decrement(ref counter);
+        //}
+
         public EmpContext(DbContextOptions<EmpContext> options) : base(options)
         {
             Database.EnsureCreated();

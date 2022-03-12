@@ -26,7 +26,7 @@ namespace EmployeeMonitoring
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 32, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 0, 59, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -59,12 +59,6 @@ namespace EmployeeMonitoring
 
                                 group db by db.Saxeli;
 
-
-                    //tu chanawerebi ari gamovides metodidan
-                    if (query.Any() == false)
-                    {
-                        return;
-                    }
 
                     foreach (IGrouping<string, EmpModel> item in query)
                     {
@@ -107,20 +101,29 @@ namespace EmployeeMonitoring
                         {
                             //pirveli shesvlis daanagariseba
                             var pirvelisesvla = shesvlalist[0].Value;
-                            int dagvianeba = DateTime.Compare(pirvelisesvla, DateTime.Parse("16:00"));
+                            int dagvianeba = DateTime.Compare(pirvelisesvla, DateTime.Parse("21:46"));
                             if (dagvianeba > 0)
                             {
                                 TimeSpan timeSpan = pirvelisesvla - new DateTime(pirvelisesvla.Year, pirvelisesvla.Month, pirvelisesvla.Day, 9, 0, 0);
                                 empModel.GacceniliSaatebi = timeSpan.TotalHours;
                             }
+                            else
+                            {
+                                empModel.GacceniliSaatebi = 0;
+                            }
 
                             //bolo gasvlis daanagariseba
                             var bologasvla = gasvlalist[gasvlalist.Count - 1].Value;
-                            int adregasvla = DateTime.Compare(bologasvla, DateTime.Parse("23:46"));
+                            int adregasvla = DateTime.Compare(bologasvla, DateTime.Parse("17:46"));
                             if (adregasvla < 0)
                             {
-                                TimeSpan timeSpan = new DateTime(bologasvla.Year, bologasvla.Month, bologasvla.Day, 23, 56, 0) - bologasvla;
+                                TimeSpan timeSpan = new DateTime(bologasvla.Year, bologasvla.Month, bologasvla.Day, 21, 8, 0) - bologasvla;
                                 empModel.GacceniliSaatebi += timeSpan.TotalHours;
+                            }
+
+                            else
+                            {
+                                empModel.GacceniliSaatebi = 0;
                             }
 
                             if (incomes > 1)
@@ -134,7 +137,7 @@ namespace EmployeeMonitoring
                             }
 
                             empModel.ShesvlisDro = DateTime.Now;
-                            context.Add(empModel);
+                            _ = context.Add(empModel);
                         }
                         //
                         else
@@ -158,7 +161,7 @@ namespace EmployeeMonitoring
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message +ex.Source);
+                    MessageBox.Show(ex.Message + ex.Source);
                 }
 
                 finally
@@ -224,7 +227,7 @@ namespace EmployeeMonitoring
 
             }
 
-          
+
 
             DateTime value = emp.ShesvlisDro.Value;
             var shesvliszgvari = new DateTime(value.Year, value.Month, value.Day, 9, 0, 0);
@@ -265,11 +268,11 @@ namespace EmployeeMonitoring
 
             //pirveli gasvla shemtxvevashi  gasvla arunda ikos semosvlis gareshe 
             bool shemosvlaiko = (from db in context.MyProperty
-                          where db.Saxeli == emp.Saxeli && 
-                          db.ShesvlisDro.Value.Date==emp.WasvlisDro.Value.Date&&
-                          db.WasvlisDro==null
-                          
-                          select db).Any();
+                                 where db.Saxeli == emp.Saxeli &&
+                                 db.ShesvlisDro.Value.Date == emp.WasvlisDro.Value.Date &&
+                                 db.WasvlisDro == null
+
+                                 select db).Any();
 
             if (shemosvlaiko == false)
             {
@@ -289,7 +292,7 @@ namespace EmployeeMonitoring
                 timer.AutoReset = false;
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
-                
+
 
                 gasvlacountclick = 0;
                 return;
@@ -308,7 +311,7 @@ namespace EmployeeMonitoring
 
 
 
-            
+
             DateTime value = emp.WasvlisDro.Value;
             var gasvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 0, 0);
             int gviangavida = DateTime.Compare((DateTime)emp.WasvlisDro, gasvliszgvari);
@@ -331,11 +334,11 @@ namespace EmployeeMonitoring
             Dispatcher.Invoke(() =>
                 {
 
-                  inouttextbox.Clear();
+                    inouttextbox.Clear();
 
                 });
-                
-            
+
+
         }
 
         private void Shesvlacountclicknull(object sender, System.Timers.ElapsedEventArgs e)
@@ -365,9 +368,22 @@ namespace EmployeeMonitoring
             shesvlacountclick = 0;
         }
 
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime startdate = fromdate.SelectedDate.Value.Date;
+            DateTime enddate = todate.SelectedDate.Value.Date;
+
+            var result = from db in context.MyProperty
+                         where db.ShesvlisDro.Value.Date >= startdate &&
+                          db.ShesvlisDro.Value.Date <= enddate &&
+                          db.GacceniliSaatebi != null
+             select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi };
 
 
 
 
+
+
+        }
     }
 }
