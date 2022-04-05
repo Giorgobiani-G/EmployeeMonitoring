@@ -26,6 +26,9 @@ namespace EmployeeMonitoring.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("EmpregisterModelId")
+                        .HasColumnType("int");
+
                     b.Property<double?>("GacceniliSaatebi")
                         .HasColumnType("float");
 
@@ -40,7 +43,44 @@ namespace EmployeeMonitoring.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpregisterModelId");
+
                     b.ToTable("EmpMonitor", "dbo");
+                });
+
+            modelBuilder.Entity("EmployeeMonitoring.Model.EmpregisterModel", b =>
+                {
+                    b.Property<int>("EmpregisterModelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
+
+                    b.HasKey("EmpregisterModelId");
+
+                    b.ToTable("Empregister", "dbo");
+                });
+
+            modelBuilder.Entity("EmployeeMonitoring.Model.EmpModel", b =>
+                {
+                    b.HasOne("EmployeeMonitoring.Model.EmpregisterModel", "EmpregisterModel")
+                        .WithMany("EmpModels")
+                        .HasForeignKey("EmpregisterModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EmpregisterModel");
+                });
+
+            modelBuilder.Entity("EmployeeMonitoring.Model.EmpregisterModel", b =>
+                {
+                    b.Navigation("EmpModels");
                 });
 #pragma warning restore 612, 618
         }

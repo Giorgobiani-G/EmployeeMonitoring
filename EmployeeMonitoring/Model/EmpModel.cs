@@ -21,8 +21,8 @@ namespace EmployeeMonitoring.Model
 
         public double? GacceniliSaatebi { get; set; }
 
-
-       
-
+        public int EmpregisterModelId { get; set; }
+        public EmpregisterModel EmpregisterModel { get; set; }
+        
     }
 }

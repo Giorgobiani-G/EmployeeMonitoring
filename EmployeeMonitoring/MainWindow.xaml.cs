@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace EmployeeMonitoring
 {
@@ -26,7 +27,7 @@ namespace EmployeeMonitoring
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 0, 59, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 16, 41, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -85,26 +86,32 @@ namespace EmployeeMonitoring
                         }
 
                         int incomes = shesvlalist.Count;
-
-                        //sesvala da gamossvlis raodenoba tuar udris ertmanets
-                        if (incomes != gasvlalist.Count)
+                        if (incomes > 0)
                         {
-                            empModel.ShesvlisDro = DateTime.Now;
+                            //sesvala da gamossvlis raodenoba tuar udris ertmanets
+                            if (incomes != gasvlalist.Count)
+                            {
+                                empModel.ShesvlisDro = DateTime.Now;
 
-                            empModel.GacceniliSaatebi = 0;
-                            context.Add(empModel);
-                            _ = context.SaveChanges();
-                            return;
-                        }
+                                empModel.GacceniliSaatebi = 0;
+                                empModel.EmpregisterModelId = context.EmpregisterModels
+                                .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault().EmpregisterModelId;
 
-                        if (incomes == 1)
-                        {
+                                context.Add(empModel);
+                                _ = context.SaveChanges();
+                                continue;
+                            }
+
+
+
+
                             //pirveli shesvlis daanagariseba
                             var pirvelisesvla = shesvlalist[0].Value;
-                            int dagvianeba = DateTime.Compare(pirvelisesvla, DateTime.Parse("21:46"));
-                            if (dagvianeba > 0)
+                            var dagvianebiszgvari = DateTime.Parse("16:15");
+                            int daagviana = DateTime.Compare(pirvelisesvla, dagvianebiszgvari);
+                            if (daagviana > 0)
                             {
-                                TimeSpan timeSpan = pirvelisesvla - new DateTime(pirvelisesvla.Year, pirvelisesvla.Month, pirvelisesvla.Day, 9, 0, 0);
+                                TimeSpan timeSpan = pirvelisesvla - DateTime.Parse("09:00");
                                 empModel.GacceniliSaatebi = timeSpan.TotalHours;
                             }
                             else
@@ -114,10 +121,11 @@ namespace EmployeeMonitoring
 
                             //bolo gasvlis daanagariseba
                             var bologasvla = gasvlalist[gasvlalist.Count - 1].Value;
-                            int adregasvla = DateTime.Compare(bologasvla, DateTime.Parse("17:46"));
-                            if (adregasvla < 0)
+                            var adregasvliszgvari = DateTime.Parse("17:30");
+                            int adregavida = DateTime.Compare(bologasvla, adregasvliszgvari);
+                            if (adregavida < 0)
                             {
-                                TimeSpan timeSpan = new DateTime(bologasvla.Year, bologasvla.Month, bologasvla.Day, 21, 8, 0) - bologasvla;
+                                TimeSpan timeSpan = DateTime.Parse("18:00") - bologasvla;
                                 empModel.GacceniliSaatebi += timeSpan.TotalHours;
                             }
 
@@ -125,6 +133,7 @@ namespace EmployeeMonitoring
                             {
                                 empModel.GacceniliSaatebi = 0;
                             }
+
 
                             if (incomes > 1)
                             {
@@ -135,6 +144,8 @@ namespace EmployeeMonitoring
                                 }
 
                             }
+                            empModel.EmpregisterModelId = context.EmpregisterModels
+                                .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault().EmpregisterModelId;
 
                             empModel.ShesvlisDro = DateTime.Now;
                             _ = context.Add(empModel);
@@ -180,6 +191,8 @@ namespace EmployeeMonitoring
 
         private int shesvlacountclick;
         private bool shesvlascopeentered;
+
+
         private async void Shesvla_Click(object sender, RoutedEventArgs e)
         {
             System.Timers.Timer timer1 = new System.Timers.Timer(3500);
@@ -196,8 +209,11 @@ namespace EmployeeMonitoring
             EmpModel emp = new EmpModel
             {
                 Saxeli = txtbox.Text,
-                ShesvlisDro = DateTime.Now
-
+                ShesvlisDro = DateTime.Now,
+                EmpregisterModelId = context.EmpregisterModels
+                .Where(sax => sax.EmployeeName == txtbox.Text).FirstOrDefault().EmpregisterModelId
+                
+               
             };
 
 
@@ -229,13 +245,13 @@ namespace EmployeeMonitoring
 
 
 
-            DateTime value = emp.ShesvlisDro.Value;
-            var shesvliszgvari = new DateTime(value.Year, value.Month, value.Day, 9, 0, 0);
-            int adresevida = DateTime.Compare((DateTime)emp.ShesvlisDro, shesvliszgvari);
-            if (adresevida < 0)
-            {
-                emp.ShesvlisDro = shesvliszgvari;
-            }
+            //DateTime value = emp.ShesvlisDro.Value;
+            //var shesvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 10, 0);
+            //int adresevida = DateTime.Compare((DateTime)emp.ShesvlisDro, shesvliszgvari);
+            //if (adresevida < 0)
+            //{
+            //    emp.ShesvlisDro = shesvliszgvari;
+            //}
 
             _ = await context.AddAsync(emp);
             _ = await context.SaveChangesAsync();
@@ -262,7 +278,9 @@ namespace EmployeeMonitoring
             EmpModel emp = new EmpModel
             {
                 Saxeli = txtbox.Text,
-                WasvlisDro = DateTime.Now
+                WasvlisDro = DateTime.Now,
+                EmpregisterModelId = context.EmpregisterModels
+                .Where(sax => sax.EmployeeName == txtbox.Text).FirstOrDefault().EmpregisterModelId
 
             };
 
@@ -312,13 +330,13 @@ namespace EmployeeMonitoring
 
 
 
-            DateTime value = emp.WasvlisDro.Value;
-            var gasvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 0, 0);
-            int gviangavida = DateTime.Compare((DateTime)emp.WasvlisDro, gasvliszgvari);
-            if (gviangavida > 0)
-            {
-                emp.WasvlisDro = gasvliszgvari;
-            }
+            //DateTime value = emp.WasvlisDro.Value;
+            //var gasvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 12, 0);
+            //int gviangavida = DateTime.Compare((DateTime)emp.WasvlisDro, gasvliszgvari);
+            //if (gviangavida > 0)
+            //{
+            //    emp.WasvlisDro = gasvliszgvari;
+            //}
             await context.AddAsync(emp);
             await context.SaveChangesAsync();
 
@@ -377,7 +395,7 @@ namespace EmployeeMonitoring
                          where db.ShesvlisDro.Value.Date >= startdate &&
                           db.ShesvlisDro.Value.Date <= enddate &&
                           db.GacceniliSaatebi != null
-             select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi };
+                         select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi };
 
 
 

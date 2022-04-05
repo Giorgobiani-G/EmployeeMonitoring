@@ -12,6 +12,10 @@ namespace EmployeeMonitoring.Data
    public class EmpContext : DbContext
     {
 
+        public EmpContext()
+        {
+
+        }
         //static int counter = 0;
 
         //public EmpContext()
@@ -26,15 +30,18 @@ namespace EmployeeMonitoring.Data
 
         public EmpContext(DbContextOptions<EmpContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            
+            //Database.EnsureCreated();
         }
 
         public DbSet<EmpModel> MyProperty { get; set; }
 
+        public DbSet<EmpregisterModel> EmpregisterModels { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=DESKTOP-LILFTDD\\SQLEXPRESS;Initial Catalog=EmpMonitoring;Integrated Security=True;");
-        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-LILFTDD\\SQLEXPRESS;Initial Catalog=EmpMonitoring;Integrated Security=True;");
+        }
     }
 }
