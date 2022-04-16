@@ -7,16 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="Shesvla" Content="Shesvla" HorizontalAlignment="Left" Margin="151,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FF28B925" Click="Shesvla_Click"/>
-        <Button x:Name="Gasvla" Content="Gasvla" HorizontalAlignment="Left" Margin="473,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FFC52323" Click="Gasvla_Click_1"/>
-        <Label Content="Emploee: " HorizontalAlignment="Left" Margin="195,99,0,0" VerticalAlignment="Top" Height="48" Width="82" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <TextBox x:Name="txtbox" HorizontalAlignment="Left" Margin="311,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="23" RenderTransformOrigin="0.502,3.325" TextAlignment="Justify" FontSize="16" Text="" FontWeight="Normal"/>
-        <TextBox x:Name="inouttextbox" HorizontalAlignment="Left" Margin="360,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Height="21" BorderBrush="White"/>
-        <DatePicker x:Name="fromdate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="262,38,0,0" VerticalAlignment="Top" Width="109"/>
-        <DatePicker x:Name="todate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="449,38,0,0" VerticalAlignment="Top" Width="109"/>
-        <Button x:Name="report" Content="Report" HorizontalAlignment="Left" Margin="599,42,0,0" VerticalAlignment="Top" Width="55" Background="#FF193CDA" BorderBrush="#FF0B41E2" Foreground="White" Click="Report_Click"/>
-        <TextBox HorizontalAlignment="Left" Margin="196,41,0,0" Text="From:" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" BorderBrush="White"/>
-        <TextBox HorizontalAlignment="Left" Margin="410,41,0,0" Text="To:" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" BorderBrush="White"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="459*"/>
+            <ColumnDefinition Width="96*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Shesvla" Content="Shesvla" HorizontalAlignment="Left" Margin="151,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FF28B925" Click="Shesvla_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="Gasvla" Content="Gasvla" HorizontalAlignment="Left" Margin="228,217,0,0" VerticalAlignment="Top" Height="41" Width="146" Background="#FFC52323" Click="Gasvla_Click_1" Grid.Column="1"/>
+        <Label Content="Emploee: " HorizontalAlignment="Left" Margin="195,99,0,0" VerticalAlignment="Top" Height="48" Width="82" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtbox" HorizontalAlignment="Left" Margin="66,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="23" RenderTransformOrigin="0.502,3.325" TextAlignment="Justify" FontSize="16" Text="" FontWeight="Normal" Grid.Column="1"/>
+        <TextBox x:Name="inouttextbox" HorizontalAlignment="Left" Margin="115,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Height="21" BorderBrush="White" Grid.Column="1"/>
+        <DatePicker x:Name="fromdate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="17,38,0,0" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
+        <DatePicker x:Name="todate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="204,38,0,0" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
+        <Button x:Name="report" Content="Report" HorizontalAlignment="Left" Margin="354,42,0,0" VerticalAlignment="Top" Width="55" Background="#FF193CDA" BorderBrush="#FF0B41E2" Foreground="White" Click="Report_Click" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="196,41,0,0" Text="From:" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" BorderBrush="White" Grid.ColumnSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Margin="165,41,0,0" Text="To:" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" BorderBrush="White" Grid.Column="1"/>
+        <Button Content="  Register&#xD;&#xA; Emploee" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="86" Height="39" Click="Button_Click"/>
 
     </Grid>
 </Window>

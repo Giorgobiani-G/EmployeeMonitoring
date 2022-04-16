@@ -1,9 +1,11 @@
-﻿using EmployeeMonitoring.Data;
+﻿using ClosedXML.Excel;
+using EmployeeMonitoring.Data;
 using EmployeeMonitoring.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
@@ -23,11 +25,11 @@ namespace EmployeeMonitoring
         {
             context = dbcontext;
             InitializeComponent();
-
+            Closing += Window_Closing;
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 16, 41, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 59, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -38,6 +40,10 @@ namespace EmployeeMonitoring
 
         }
 
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         private readonly object outputLock = new();
 
@@ -59,6 +65,39 @@ namespace EmployeeMonitoring
                                 || (db.WasvlisDro.HasValue && db.WasvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
 
                                 group db by db.Saxeli;
+
+
+
+                    #region Es kodi amowmebs tu dasvenebis dge araa da romelime tanamsromeli ar gamocxadebla gacdenili saatebis raodenoba udris 8 saats
+                    if (query is not null)
+                    {
+                        foreach (var item in query)
+                        {
+                            var contains = context.EmpregisterModels.Where(n => n.EmpregisterModelId != item
+                            .Select(it => it.EmpregisterModelId).FirstOrDefault()).AsEnumerable();
+
+                            if (contains is not null)
+                            {
+                                foreach (var coll in contains)
+                                {
+                                    EmpModel empModel = new EmpModel();
+
+                                    empModel.Saxeli = coll.EmployeeName;
+                                    empModel.ShesvlisDro = DateTime.Now;
+                                    empModel.GacceniliSaatebi = 8;
+
+                                    empModel.EmpregisterModelId = coll.EmpregisterModelId;
+
+                                    context.Add(empModel);
+                                }
+
+
+                                context.SaveChanges();
+                            }
+
+                        }
+                    }
+                    #endregion
 
 
                     foreach (IGrouping<string, EmpModel> item in query)
@@ -212,8 +251,8 @@ namespace EmployeeMonitoring
                 ShesvlisDro = DateTime.Now,
                 EmpregisterModelId = context.EmpregisterModels
                 .Where(sax => sax.EmployeeName == txtbox.Text).FirstOrDefault().EmpregisterModelId
-                
-               
+
+
             };
 
 
@@ -397,9 +436,42 @@ namespace EmployeeMonitoring
                           db.GacceniliSaatebi != null
                          select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi };
 
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("GacdeniliSaatebi");
+                var currentrow = 1;
+                worksheet.Cell(currentrow, 1).Value = "სახელი";
+                worksheet.Cell(currentrow, 2).Value = "თარიღი";
+                worksheet.Cell(currentrow, 3).Value = "გაცდენილისაათები";
+                foreach (var item in result)
+                {
+                    currentrow++;
+                    worksheet.Cell(currentrow, 1).Value = item.Name;
+                    worksheet.Cell(currentrow, 2).Value = item.Tarigi;
+                    worksheet.Cell(currentrow, 3).Value = item.Gacdenilisaatebi;
+
+                }
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    string filename = "GacdeniliSaatebi" + DateTime.Now.ToString("yyyyMMddss") + ".xlsx";
+                    File.WriteAllBytes("C:\\Users\\admin\\Desktop\\" + filename, content);
+                }
+                
+            }
 
 
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow(context);
+            registrationWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            registrationWindow.ResizeMode = ResizeMode.NoResize;
+
+            registrationWindow.Show();
+            this.Hide();
 
 
         }
