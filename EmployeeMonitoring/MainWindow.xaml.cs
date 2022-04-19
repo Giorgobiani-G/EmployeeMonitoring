@@ -29,7 +29,7 @@ namespace EmployeeMonitoring
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 59, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 55, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -460,7 +460,7 @@ namespace EmployeeMonitoring
                 }
                 
             }
-
+            MessageBox.Show("რეპორტის ფაილი წარმატებით შეინახა!");
 
         }
 

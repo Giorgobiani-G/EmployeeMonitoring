@@ -28,6 +28,11 @@ namespace EmployeeMonitoring
             context = dbcontext;
             InitializeComponent();
             Closing += Window_Closing;
+
+
+          
+
+
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -42,22 +47,25 @@ namespace EmployeeMonitoring
 
         private void RegisterRegister_Click(object sender, RoutedEventArgs e)
         {
+             
+
             var exits = (from db in context.EmpregisterModels
                          where db.EmployeeName == RegisterEmpName.Text
                          select db).Any();
             if (exits)
             {
-                MessageBox.Show("Aseti Tanamshromeli ukve arsebobs");
+                MessageBox.Show("ასეთი თანამშრომელი უკვე არსებობს!","თანამშრომელის დამატება:");
 
             }
             else
             {
+                
                 EmpregisterModel empregisterModel = new();
                 empregisterModel.EmployeeName = RegisterEmpName.Text;
-                empregisterModel.Salary = Convert.ToDouble(RegisterSalary.Text);
+                empregisterModel.Salary = double.Parse(RegisterSalary.Text, System.Globalization.CultureInfo.InvariantCulture);
                 context.Add(empregisterModel);
                 context.SaveChanges();
-                MessageBox.Show("Tanamshromeli warmatebit Daemata");
+                MessageBox.Show("თანამშრომელი წარმატებით დაემატა!", "თანამშრომელის დამატება:");
             }
                         
 
@@ -73,5 +81,7 @@ namespace EmployeeMonitoring
             Hide();
 
         }
+
+       
     }
 }
