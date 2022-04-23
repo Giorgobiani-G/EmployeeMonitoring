@@ -30,7 +30,7 @@ namespace EmployeeMonitoring
             Closing += Window_Closing;
 
 
-          
+            RegisterRegister.IsEnabled = false;
 
 
         }
@@ -47,34 +47,35 @@ namespace EmployeeMonitoring
 
         private void RegisterRegister_Click(object sender, RoutedEventArgs e)
         {
-             
+
+
 
             var exits = (from db in context.EmpregisterModels
                          where db.EmployeeName == RegisterEmpName.Text
                          select db).Any();
             if (exits)
             {
-                MessageBox.Show("ასეთი თანამშრომელი უკვე არსებობს!","თანამშრომელის დამატება:");
+                MessageBox.Show("ასეთი თანამშრომელი უკვე არსებობს!", "თანამშრომელის დამატება:");
 
             }
             else
             {
-                
+
                 EmpregisterModel empregisterModel = new();
                 empregisterModel.EmployeeName = RegisterEmpName.Text;
-                empregisterModel.Salary = double.Parse(RegisterSalary.Text, System.Globalization.CultureInfo.InvariantCulture);
+                empregisterModel.Salary = decimal.Parse(RegisterSalary.Text, System.Globalization.CultureInfo.InvariantCulture);
                 context.Add(empregisterModel);
                 context.SaveChanges();
                 MessageBox.Show("თანამშრომელი წარმატებით დაემატა!", "თანამშრომელის დამატება:");
             }
-                        
+
 
 
         }
 
         private void Main_Click(object sender, RoutedEventArgs e)
         {
-          
+
 
             MainWindow mainWindow = new MainWindow(context);
             mainWindow.Show();
@@ -82,6 +83,77 @@ namespace EmployeeMonitoring
 
         }
 
-       
+        private void RegisterEmpName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string txtboxvalue;
+            bool istrue = RegisterSalary.Text.Contains(".");
+            if (istrue)
+            {
+                txtboxvalue = RegisterSalary.Text.Replace(".", ",");
+
+            }
+            else
+            {
+                txtboxvalue = RegisterSalary.Text;
+            }
+            try
+            {
+                double convert = Convert.ToDouble(txtboxvalue);
+
+                if (string.IsNullOrEmpty(RegisterEmpName.Text) || string.IsNullOrEmpty(RegisterSalary.Text))
+                {
+                    RegisterRegister.IsEnabled = false;
+                }
+                else
+                {
+                    RegisterRegister.IsEnabled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                RegisterRegister.IsEnabled = false;
+            }
+        }
+
+        private void RegisterSalary_LostFocus(object sender, RoutedEventArgs e)
+        {
+            
+
+            string txtboxvalue;
+            double convert;
+            bool istrue = RegisterSalary.Text.Contains(".");
+            if (istrue)
+            {
+                 txtboxvalue = RegisterSalary.Text.Replace(".", ",");
+               
+            }
+            else
+            {
+                txtboxvalue = RegisterSalary.Text;
+            }
+
+            try
+            {
+                if (string.IsNullOrEmpty(txtboxvalue)||string.IsNullOrEmpty(RegisterEmpName.Text))
+                {
+                    RegisterRegister.IsEnabled = false;
+                }
+                else
+                {
+                    convert = Convert.ToDouble(txtboxvalue);
+                    RegisterRegister.IsEnabled = true;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                RegisterRegister.IsEnabled = false;
+            }
+
+
+            
+        }
     }
 }

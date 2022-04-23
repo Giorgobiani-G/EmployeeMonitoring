@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmployeeMonitoring.Migrations
 {
-    public partial class initial : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,8 @@ namespace EmployeeMonitoring.Migrations
                 {
                     EmpregisterModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: false)
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,6 +36,7 @@ namespace EmployeeMonitoring.Migrations
                     ShesvlisDro = table.Column<DateTime>(type: "datetime2", nullable: true),
                     WasvlisDro = table.Column<DateTime>(type: "datetime2", nullable: true),
                     GacceniliSaatebi = table.Column<double>(type: "float", nullable: true),
+                    GamosaklebiXelpasi = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     EmpregisterModelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

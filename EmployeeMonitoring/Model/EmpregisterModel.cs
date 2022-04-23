@@ -13,7 +13,7 @@ namespace EmployeeMonitoring.Model
     public class EmpregisterModel : INotifyPropertyChanged
     {
         private string _employeeName="emp";
-        private double _salary;
+        private decimal _salary;
 
         [Key]
         public int EmpregisterModelId { get; set; }
@@ -37,7 +37,7 @@ namespace EmployeeMonitoring.Model
 
 
 
-        public double Salary
+        public decimal Salary
         {
             get => _salary;
 

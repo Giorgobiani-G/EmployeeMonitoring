@@ -29,7 +29,7 @@ namespace EmployeeMonitoring
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 55, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 22, 12, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -85,7 +85,8 @@ namespace EmployeeMonitoring
                                     empModel.Saxeli = coll.EmployeeName;
                                     empModel.ShesvlisDro = DateTime.Now;
                                     empModel.GacceniliSaatebi = 8;
-
+                                    decimal xelpasisaatshi = context.EmpregisterModels.Where(x => x.EmpregisterModelId == empModel.EmpregisterModelId).AsEnumerable().Select(x => x.Salary / 24 / 8).First();
+                                    empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
                                     empModel.EmpregisterModelId = coll.EmpregisterModelId;
 
                                     context.Add(empModel);
@@ -160,7 +161,7 @@ namespace EmployeeMonitoring
 
                             //bolo gasvlis daanagariseba
                             var bologasvla = gasvlalist[gasvlalist.Count - 1].Value;
-                            var adregasvliszgvari = DateTime.Parse("17:30");
+                            var adregasvliszgvari = DateTime.Parse("22:30");
                             int adregavida = DateTime.Compare(bologasvla, adregasvliszgvari);
                             if (adregavida < 0)
                             {
@@ -185,6 +186,10 @@ namespace EmployeeMonitoring
                             }
                             empModel.EmpregisterModelId = context.EmpregisterModels
                                 .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault().EmpregisterModelId;
+
+                            decimal xelpasisaatshi = context.EmpregisterModels.Where(x => x.EmpregisterModelId == empModel.EmpregisterModelId).AsEnumerable().Select(x => x.Salary / 24 / 8).First();
+                           
+                            empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
 
                             empModel.ShesvlisDro = DateTime.Now;
                             _ = context.Add(empModel);

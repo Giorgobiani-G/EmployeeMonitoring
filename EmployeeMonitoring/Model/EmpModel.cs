@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeMonitoring.Model
 {
-    [Table("EmpMonitor",Schema ="dbo")]
-   public class EmpModel
+    [Table("EmpMonitor", Schema = "dbo")]
+    public class EmpModel
     {
+         
 
         [Key]
         public int Id { get; set; }
@@ -21,8 +22,11 @@ namespace EmployeeMonitoring.Model
 
         public double? GacceniliSaatebi { get; set; }
 
+        public decimal? GamosaklebiXelpasi { get; set; }
+
+
         public int EmpregisterModelId { get; set; }
         public EmpregisterModel EmpregisterModel { get; set; }
-        
+
     }
 }

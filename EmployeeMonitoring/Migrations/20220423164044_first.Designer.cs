@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeMonitoring.Migrations
 {
     [DbContext(typeof(EmpContext))]
-    [Migration("20220404190814_initial")]
-    partial class initial
+    [Migration("20220423164044_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,9 @@ namespace EmployeeMonitoring.Migrations
 
                     b.Property<double?>("GacceniliSaatebi")
                         .HasColumnType("float");
+
+                    b.Property<decimal?>("GamosaklebiXelpasi")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Saxeli")
                         .HasColumnType("nvarchar(max)");
@@ -58,11 +61,10 @@ namespace EmployeeMonitoring.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("EmployeeName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Salary")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("EmpregisterModelId");
 
