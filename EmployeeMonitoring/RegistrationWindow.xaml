@@ -10,13 +10,13 @@
         Title="Registration" Height="250" Width="543"    FontWeight="Normal">
     <Window.Resources>
         <m:EmpregisterModel x:Key="KK"/>
-         
+
 
     </Window.Resources>
 
     <Canvas Background="#FFC6C6C6" Margin="0,1,0,-10"  DataContext="{Binding Source={StaticResource ResourceKey=KK}}">
 
-        <TextBox  x:Name="RegisterEmpName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="55" LostFocus="RegisterEmpName_LostFocus"/>
+        <TextBox  x:Name="RegisterEmpName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="55" TextChanged="RegisterEmpName_TextChanged"/>
 
 
 
@@ -24,7 +24,7 @@
 
 
 
-        <TextBox x:Name="RegisterSalary" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="100" LostFocus="RegisterSalary_LostFocus"/>
+        <TextBox x:Name="RegisterSalary" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="100" TextChanged="RegisterSalary_TextChanged"/>
 
 
 
@@ -32,7 +32,7 @@
         <Label Content="Salary :" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" FontWeight="Bold" Foreground="#FF280505" RenderTransformOrigin="1.021,0.425" Canvas.Left="172" Canvas.Top="94" Width="54" Height="27"/>
         <Button x:Name="Main"  Content="Main" HorizontalAlignment="Center" VerticalAlignment="Top" Height="28" Width="82" Background="#FFCC150E" Click="Main_Click" Grid.ColumnSpan="2" Canvas.Left="17" Canvas.Top="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
-        <Button x:Name="RegisterRegister" Content="Register" HorizontalAlignment="Center" VerticalAlignment="Top" Height="31" Width="79" Background="#FF23CC0E" Click="RegisterRegister_Click" Canvas.Left="305" Canvas.Top="147" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="RegisterRegister" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="61" Background="#FF23CC0E" Click="RegisterRegister_Click" Canvas.Left="323" Canvas.Top="147" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
 
 
@@ -49,9 +49,9 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource errorToolTip}"/>
- 
-            
-            
+
+
+
 
         </Canvas.Resources>
 

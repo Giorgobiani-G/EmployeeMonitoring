@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -83,24 +84,84 @@ namespace EmployeeMonitoring
 
         }
 
-        private void RegisterEmpName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            string txtboxvalue;
-            bool istrue = RegisterSalary.Text.Contains(".");
-            if (istrue)
-            {
-                txtboxvalue = RegisterSalary.Text.Replace(".", ",");
+        //private void RegisterEmpName_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    string txtboxvalue;
+        //    bool istrue = RegisterSalary.Text.Contains(".");
+        //    if (istrue)
+        //    {
+        //        txtboxvalue = RegisterSalary.Text.Replace(".", ",");
 
-            }
-            else
-            {
-                txtboxvalue = RegisterSalary.Text;
-            }
+        //    }
+        //    else
+        //    {
+        //        txtboxvalue = RegisterSalary.Text;
+        //    }
+        //    try
+        //    {
+        //        double convert = Convert.ToDouble(txtboxvalue);
+
+        //        if (string.IsNullOrEmpty(RegisterEmpName.Text) || string.IsNullOrEmpty(RegisterSalary.Text))
+        //        {
+        //            RegisterRegister.IsEnabled = false;
+        //        }
+        //        else
+        //        {
+        //            RegisterRegister.IsEnabled = true;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        RegisterRegister.IsEnabled = false;
+        //    }
+        //}
+
+        //private void RegisterSalary_LostFocus(object sender, RoutedEventArgs e)
+        //{
+
+
+        //    string txtboxvalue;
+        //    double convert;
+        //    bool istrue = RegisterSalary.Text.Contains(".");
+        //    if (istrue)
+        //    {
+        //         txtboxvalue = RegisterSalary.Text.Replace(".", ",");
+
+        //    }
+        //    else
+        //    {
+        //        txtboxvalue = RegisterSalary.Text;
+        //    }
+
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(txtboxvalue)||string.IsNullOrEmpty(RegisterEmpName.Text))
+        //        {
+        //            RegisterRegister.IsEnabled = false;
+        //        }
+        //        else
+        //        {
+        //            convert = Convert.ToDouble(txtboxvalue);
+        //            RegisterRegister.IsEnabled = true;
+        //        }
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        RegisterRegister.IsEnabled = false;
+        //    }
+
+
+
+        //}
+
+        private void RegisterEmpName_TextChanged(object sender, TextChangedEventArgs e)
+        {
             try
             {
-                double convert = Convert.ToDouble(txtboxvalue);
-
-                if (string.IsNullOrEmpty(RegisterEmpName.Text) || string.IsNullOrEmpty(RegisterSalary.Text))
+                if (string.IsNullOrEmpty(RegisterSalary.Text) || string.IsNullOrWhiteSpace(RegisterEmpName.Text))
                 {
                     RegisterRegister.IsEnabled = false;
                 }
@@ -109,51 +170,37 @@ namespace EmployeeMonitoring
                     RegisterRegister.IsEnabled = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                RegisterRegister.IsEnabled = false;
+                MessageBox.Show(ex.Message);
             }
+
         }
 
-        private void RegisterSalary_LostFocus(object sender, RoutedEventArgs e)
+        private void RegisterSalary_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-
-            string txtboxvalue;
-            double convert;
-            bool istrue = RegisterSalary.Text.Contains(".");
-            if (istrue)
-            {
-                 txtboxvalue = RegisterSalary.Text.Replace(".", ",");
-               
-            }
-            else
-            {
-                txtboxvalue = RegisterSalary.Text;
-            }
 
             try
             {
-                if (string.IsNullOrEmpty(txtboxvalue)||string.IsNullOrEmpty(RegisterEmpName.Text))
+                if (string.IsNullOrEmpty(RegisterEmpName.Text) ||
+                    Regex.IsMatch(RegisterSalary.Text, @"^(0|[1-9]\d*)(\.\d{1,2})?$") == false) // მხოლოდ იღებს  int-ს და decimal-ს წერტილის შემდეგ 2 თანრიგით.
                 {
                     RegisterRegister.IsEnabled = false;
                 }
                 else
                 {
-                    convert = Convert.ToDouble(txtboxvalue);
+
                     RegisterRegister.IsEnabled = true;
                 }
-                
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                RegisterRegister.IsEnabled = false;
+                MessageBox.Show(ex.Message);
             }
 
-
-            
         }
     }
 }
