@@ -32,28 +32,12 @@
         <Label Content="Salary :" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" FontWeight="Bold" Foreground="#FF280505" RenderTransformOrigin="1.021,0.425" Canvas.Left="172" Canvas.Top="94" Width="54" Height="27"/>
         <Button x:Name="Main"  Content="Main" HorizontalAlignment="Center" VerticalAlignment="Top" Height="28" Width="82" Background="#FFCC150E" Click="Main_Click" Grid.ColumnSpan="2" Canvas.Left="17" Canvas.Top="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
-        <Button x:Name="RegisterRegister" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="61" Background="#FF23CC0E" Click="RegisterRegister_Click" Canvas.Left="323" Canvas.Top="147" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="RegisterRegister" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="61" Background="#FF23CC0E" Click="RegisterRegister_Click" Canvas.Left="323" Canvas.Top="147" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
 
 
 
 
-        <Canvas.Resources>
-            <Style x:Key="errorToolTip" TargetType="Control">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="ToolTip"
-                        Value="{
-                            Binding RelativeSource={x:Static RelativeSource.Self}, 
-                            Path=(Validation.Errors)/ErrorContent}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource errorToolTip}"/>
-
-
-
-
-        </Canvas.Resources>
+        
 
     </Canvas>
 </Window>

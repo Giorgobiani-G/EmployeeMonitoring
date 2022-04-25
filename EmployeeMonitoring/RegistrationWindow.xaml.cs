@@ -84,78 +84,7 @@ namespace EmployeeMonitoring
 
         }
 
-        //private void RegisterEmpName_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    string txtboxvalue;
-        //    bool istrue = RegisterSalary.Text.Contains(".");
-        //    if (istrue)
-        //    {
-        //        txtboxvalue = RegisterSalary.Text.Replace(".", ",");
-
-        //    }
-        //    else
-        //    {
-        //        txtboxvalue = RegisterSalary.Text;
-        //    }
-        //    try
-        //    {
-        //        double convert = Convert.ToDouble(txtboxvalue);
-
-        //        if (string.IsNullOrEmpty(RegisterEmpName.Text) || string.IsNullOrEmpty(RegisterSalary.Text))
-        //        {
-        //            RegisterRegister.IsEnabled = false;
-        //        }
-        //        else
-        //        {
-        //            RegisterRegister.IsEnabled = true;
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        RegisterRegister.IsEnabled = false;
-        //    }
-        //}
-
-        //private void RegisterSalary_LostFocus(object sender, RoutedEventArgs e)
-        //{
-
-
-        //    string txtboxvalue;
-        //    double convert;
-        //    bool istrue = RegisterSalary.Text.Contains(".");
-        //    if (istrue)
-        //    {
-        //         txtboxvalue = RegisterSalary.Text.Replace(".", ",");
-
-        //    }
-        //    else
-        //    {
-        //        txtboxvalue = RegisterSalary.Text;
-        //    }
-
-        //    try
-        //    {
-        //        if (string.IsNullOrEmpty(txtboxvalue)||string.IsNullOrEmpty(RegisterEmpName.Text))
-        //        {
-        //            RegisterRegister.IsEnabled = false;
-        //        }
-        //        else
-        //        {
-        //            convert = Convert.ToDouble(txtboxvalue);
-        //            RegisterRegister.IsEnabled = true;
-        //        }
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        RegisterRegister.IsEnabled = false;
-        //    }
-
-
-
-        //}
+         
 
         private void RegisterEmpName_TextChanged(object sender, TextChangedEventArgs e)
         {
