@@ -439,7 +439,7 @@ namespace EmployeeMonitoring
                          where db.ShesvlisDro.Value.Date >= startdate &&
                           db.ShesvlisDro.Value.Date <= enddate &&
                           db.GacceniliSaatebi != null
-                         select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi };
+                         select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi, Gamosaklebixelpasi = db.GamosaklebiXelpasi };
 
             using (var workbook = new XLWorkbook())
             {
@@ -448,12 +448,14 @@ namespace EmployeeMonitoring
                 worksheet.Cell(currentrow, 1).Value = "სახელი";
                 worksheet.Cell(currentrow, 2).Value = "თარიღი";
                 worksheet.Cell(currentrow, 3).Value = "გაცდენილისაათები";
+                worksheet.Cell(currentrow, 4).Value = "გამოსაკლებიხელფასი";
                 foreach (var item in result)
                 {
                     currentrow++;
                     worksheet.Cell(currentrow, 1).Value = item.Name;
                     worksheet.Cell(currentrow, 2).Value = item.Tarigi;
                     worksheet.Cell(currentrow, 3).Value = item.Gacdenilisaatebi;
+                    worksheet.Cell(currentrow, 4).Value = item.Gamosaklebixelpasi;
 
                 }
                 using (var stream = new MemoryStream())
