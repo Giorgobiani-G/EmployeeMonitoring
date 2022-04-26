@@ -426,7 +426,7 @@ namespace EmployeeMonitoring
             if (result.Any()==false)
             {
                 
-                MessageBox.Show("ჩანაწერები არ არსებობს!","",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("ჩანაწერები არ არსებობს!","",MessageBoxButton.OK,MessageBoxImage.Error);
                 return;
             }
 
