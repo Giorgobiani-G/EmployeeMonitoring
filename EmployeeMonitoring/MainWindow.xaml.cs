@@ -68,7 +68,7 @@ namespace EmployeeMonitoring
 
 
 
-                    #region Es kodi amowmebs tu dasvenebis dge araa da romelime tanamsromeli ar gamocxadebla gacdenili saatebis raodenoba udris 8 saats
+                    #region თუ დასვენების დღე არაა და  რომელიმე თანამშრომელი არ გამოცხედებულა გაცდენილი საათების რაოდენობა უდრის 8 საათს
                     if (query is not null)
                     {
                         foreach (var item in query)
@@ -206,11 +206,7 @@ namespace EmployeeMonitoring
                     _ = context.SaveChanges();
 
 
-                    //catch (Exception ex)
-                    //{
-                    //    MessageBox.Show(ex.Message);
-
-                    //}
+                   
 
                 }
 
@@ -288,14 +284,7 @@ namespace EmployeeMonitoring
             }
 
 
-
-            //DateTime value = emp.ShesvlisDro.Value;
-            //var shesvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 10, 0);
-            //int adresevida = DateTime.Compare((DateTime)emp.ShesvlisDro, shesvliszgvari);
-            //if (adresevida < 0)
-            //{
-            //    emp.ShesvlisDro = shesvliszgvari;
-            //}
+ 
 
             _ = await context.AddAsync(emp);
             _ = await context.SaveChangesAsync();
@@ -372,15 +361,6 @@ namespace EmployeeMonitoring
             }
 
 
-
-
-            //DateTime value = emp.WasvlisDro.Value;
-            //var gasvliszgvari = new DateTime(value.Year, value.Month, value.Day, 18, 12, 0);
-            //int gviangavida = DateTime.Compare((DateTime)emp.WasvlisDro, gasvliszgvari);
-            //if (gviangavida > 0)
-            //{
-            //    emp.WasvlisDro = gasvliszgvari;
-            //}
             await context.AddAsync(emp);
             await context.SaveChangesAsync();
 
@@ -441,6 +421,15 @@ namespace EmployeeMonitoring
                           db.GacceniliSaatebi != null
                          select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi, Gamosaklebixelpasi = db.GamosaklebiXelpasi };
 
+            
+
+            if (result.Any()==false)
+            {
+                
+                MessageBox.Show("ჩანაწერები არ არსებობს!","",MessageBoxButton.OK,MessageBoxImage.Information);
+                return;
+            }
+
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("GacdeniliSaatebi");
@@ -467,7 +456,7 @@ namespace EmployeeMonitoring
                 }
                 
             }
-            MessageBox.Show("რეპორტის ფაილი წარმატებით შეინახა!");
+            MessageBox.Show("რეპორტის ფაილი წარმატებით შეინახა!","",MessageBoxButton.OK,MessageBoxImage.Information);
 
         }
 

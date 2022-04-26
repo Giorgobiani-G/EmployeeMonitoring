@@ -20,8 +20,8 @@
         <DatePicker x:Name="fromdate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="17,38,0,0" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
         <DatePicker x:Name="todate" SelectedDate="{x:Static sys:DateTime.Now}"  HorizontalAlignment="Left" Margin="204,38,0,0" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
         <Button x:Name="report" Content="Report" HorizontalAlignment="Left" Margin="354,37,0,0" VerticalAlignment="Top" Width="69" Background="#FF193CDA" BorderBrush="#FF0B41E2" Foreground="White" Click="Report_Click" Grid.Column="1" Height="25" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="196,41,0,0" Text="From:" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" BorderBrush="White" Grid.ColumnSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,41,0,0" Text="To:" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" BorderBrush="White" Grid.Column="1"/>
+        <TextBox IsReadOnly="False" HorizontalAlignment="Left" Margin="196,41,0,0" Text="From:" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" BorderBrush="White" Grid.ColumnSpan="2"/>
+        <TextBox IsReadOnly="False" HorizontalAlignment="Left" Margin="165,41,0,0" Text="To:" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" BorderBrush="White" Grid.Column="1"/>
         <Button Content="  Register&#xD;&#xA; Emploee" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="86" Height="39" Click="Button_Click" Background="#FF28B925" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
     </Grid>

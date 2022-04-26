@@ -56,7 +56,7 @@ namespace EmployeeMonitoring
                          select db).Any();
             if (exits)
             {
-                MessageBox.Show("ასეთი თანამშრომელი უკვე არსებობს!", "თანამშრომელის დამატება:");
+                MessageBox.Show("ასეთი თანამშრომელი უკვე არსებობს!","",MessageBoxButton.OK,MessageBoxImage.Error);
 
             }
             else
@@ -67,7 +67,7 @@ namespace EmployeeMonitoring
                 empregisterModel.Salary = decimal.Parse(RegisterSalary.Text, System.Globalization.CultureInfo.InvariantCulture);
                 context.Add(empregisterModel);
                 context.SaveChanges();
-                MessageBox.Show("თანამშრომელი წარმატებით დაემატა!", "თანამშრომელის დამატება:");
+                MessageBox.Show("თანამშრომელი წარმატებით დაემატა!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 
