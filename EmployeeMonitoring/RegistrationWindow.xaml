@@ -7,7 +7,7 @@
        xmlns:m ="clr-namespace:EmployeeMonitoring.Model"
         mc:Ignorable="d"
         
-        Title="Registration" Height="250" Width="543"    FontWeight="Normal">
+        Title="Registration" Height="250" Width="543"    FontWeight="Normal"  ResizeMode="CanMinimize" WindowStartupLocation="Manual">
     <Window.Resources>
         <m:EmpregisterModel x:Key="KK"/>
 
@@ -18,26 +18,13 @@
 
         <TextBox  x:Name="RegisterEmpName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="55" TextChanged="RegisterEmpName_TextChanged"/>
 
-
-
-
-
-
-
         <TextBox x:Name="RegisterSalary" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="271" Canvas.Top="100" TextChanged="RegisterSalary_TextChanged"/>
-
-
 
         <Label Grid.Row="0" Content="EmpName :" HorizontalAlignment="Center" VerticalAlignment="Top" Width="83" FontWeight="Bold" Canvas.Left="147" Canvas.Top="48" Height="27"/>
         <Label Content="Salary :" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" FontWeight="Bold" Foreground="#FF280505" RenderTransformOrigin="1.021,0.425" Canvas.Left="172" Canvas.Top="94" Width="54" Height="27"/>
         <Button x:Name="Main"  Content="Main" HorizontalAlignment="Center" VerticalAlignment="Top" Height="28" Width="82" Background="#FFCC150E" Click="Main_Click" Grid.ColumnSpan="2" Canvas.Left="17" Canvas.Top="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
         <Button x:Name="RegisterRegister" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="61" Background="#FF23CC0E" Click="RegisterRegister_Click" Canvas.Left="323" Canvas.Top="147" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
-
-
-
-
         
-
     </Canvas>
 </Window>

@@ -29,7 +29,7 @@ namespace EmployeeMonitoring
             context = dbcontext;
             InitializeComponent();
             Closing += Window_Closing;
-
+           
 
             RegisterRegister.IsEnabled = false;
 
