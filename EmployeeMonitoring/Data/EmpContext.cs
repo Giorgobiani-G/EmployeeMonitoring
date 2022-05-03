@@ -16,22 +16,12 @@ namespace EmployeeMonitoring.Data
         {
 
         }
-        //static int counter = 0;
-
-        //public EmpContext()
-        //{
-        //    Interlocked.Increment(ref counter);
-        //}
-
-        //~EmpContext() 
-        //{
-        //    Interlocked.Decrement(ref counter);
-        //}
+        
 
         public EmpContext(DbContextOptions<EmpContext> options) : base(options)
         {
             
-            //Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<EmpModel> MyProperty { get; set; }
