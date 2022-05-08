@@ -31,11 +31,11 @@ namespace EmployeeMonitoring
             {
                 options.UseSqlServer("Data Source=DESKTOP-LILFTDD\\SQLEXPRESS;Initial Catalog=EmpMonitoring;Integrated Security=True;");
             });
-            services.AddSingleton<MainWindow>();
+            services.AddSingleton<Users>();
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<MainWindow>();
+            var mainWindow = serviceProvider.GetService<Users>();
             mainWindow.Show();
         }
     }

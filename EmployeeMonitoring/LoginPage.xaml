@@ -1,0 +1,23 @@
+﻿<Page x:Class="EmployeeMonitoring.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EmployeeMonitoring"
+      mc:Ignorable="d" 
+      d:DesignHeight="145" d:DesignWidth="545"
+      Title="LoginPage">
+
+    <Canvas>
+        <TextBox  x:Name="LoginName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="269" Canvas.Top="18"   />
+
+        <PasswordBox x:Name="LoginPass" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="114" Height="18" Canvas.Left="269" Canvas.Top="63" />
+
+        <Label Grid.Row="0" Content="UserName :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" FontWeight="Bold" Canvas.Left="145" Canvas.Top="11" Height="27"/>
+        <Label Content="Password :" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" FontWeight="Bold" Foreground="#FF280505" RenderTransformOrigin="1.021,0.425" Canvas.Left="154" Canvas.Top="57" Width="70" Height="27"/>
+
+        <Button x:Name="LoginBtn" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="61" Background="#FF23CC0E"  Canvas.Left="320" Canvas.Top="108" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Click="LoginBtn_Click" />
+
+
+    </Canvas>
+</Page>

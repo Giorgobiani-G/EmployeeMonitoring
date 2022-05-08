@@ -32,7 +32,7 @@ namespace EmployeeMonitoring
            
 
             RegisterRegister.IsEnabled = false;
-
+            Main.Content = new RegPage(context);
 
         }
 

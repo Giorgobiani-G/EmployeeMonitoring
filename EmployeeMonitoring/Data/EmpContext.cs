@@ -28,7 +28,9 @@ namespace EmployeeMonitoring.Data
 
         public DbSet<EmpregisterModel> EmpregisterModels { get; set; }
 
+        public DbSet<UserRegistration> UserRegistrations { get; set; }
 
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-LILFTDD\\SQLEXPRESS;Initial Catalog=EmpMonitoring;Integrated Security=True;");
