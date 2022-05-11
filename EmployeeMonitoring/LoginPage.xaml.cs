@@ -36,8 +36,18 @@ namespace EmployeeMonitoring
 
             if (users)
             {
-                EmpgridWindow empgridWindow = new EmpgridWindow(_context);
-                empgridWindow.Show();
+
+
+
+                MainWindow mainWindow = new MainWindow(_context);
+                mainWindow.Show();
+
+                Window win = Application.Current.Windows[0];
+
+                win.Close();
+
+
+
 
             }
 

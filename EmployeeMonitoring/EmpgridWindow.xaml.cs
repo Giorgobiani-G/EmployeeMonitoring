@@ -53,5 +53,22 @@ namespace EmployeeMonitoring
 
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(gridboxsalary.Text)!=true)
+            {
+                 var ee = (from db in _empcontext.EmpregisterModels
+                         where db.EmpregisterModelId.ToString() == gridboxid.Text
+                         select db).FirstOrDefault();
+
+                ee.Salary = Convert.ToDecimal(gridboxsalary.Text);
+
+                _empcontext.EmpregisterModels.Update(ee);
+                _empcontext.SaveChanges();
+
+            }
+            
+        }
     }
 }

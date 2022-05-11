@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeMonitoring"
         mc:Ignorable="d"
-        Title="EmpgridWindow" Height="450" Width="800">
+        Title="EmpgridWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
 
-    <Grid x:Name="Empgrid">
+    <Grid x:Name="Empgrid" >
         <DataGrid x:Name="GridData"  Loaded="GridData_Loaded" ColumnWidth="*" AutoGenerateColumns="True" CanUserAddRows="False" Margin="590,0,23,60" SelectionChanged="GridData_SelectionChanged">
 
         </DataGrid>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="192,100,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="190,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="189,149,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="gridboxid" HorizontalAlignment="Left" Margin="302,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="gridboxname" HorizontalAlignment="Left" Margin="300,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="192,100,0,0" VerticalAlignment="Top"/>
+        <Label Content="Salary" HorizontalAlignment="Left" Margin="190,219,0,0" VerticalAlignment="Top"/>
+        <Label Content="EmpName" HorizontalAlignment="Left" Margin="189,149,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="gridboxid" HorizontalAlignment="Left" Margin="302,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="gridboxname" HorizontalAlignment="Left" Margin="300,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="gridboxsalary" HorizontalAlignment="Left" Margin="298,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="EditSalarybtn" Content="Edit" HorizontalAlignment="Left" Margin="263,293,0,0" VerticalAlignment="Top" Background="#FF15CA1D" Width="50" Click="Button_Click"/>
 
     </Grid>
 </Window>

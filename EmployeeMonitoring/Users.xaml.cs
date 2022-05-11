@@ -35,17 +35,6 @@ namespace EmployeeMonitoring
 
          
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Main.Content = new RegPage(_context);
-             
-        //}
-
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    Main.Content = new LoginPage(_context);
-        //}
-
         private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Main.Content = new LoginPage(_context);
