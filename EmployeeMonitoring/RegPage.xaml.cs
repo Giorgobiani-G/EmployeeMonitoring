@@ -57,7 +57,7 @@ namespace EmployeeMonitoring
 
         private void UserName_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password))
+            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password)||UserName.Text.StartsWith(" "))
             {
                 UserRegister.IsEnabled = false;
             }
@@ -71,7 +71,7 @@ namespace EmployeeMonitoring
 
         private void Password_PasswordChanged_1(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password))
+            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password)||Password.Password.StartsWith(" "))
             {
                 UserRegister.IsEnabled = false;
             }

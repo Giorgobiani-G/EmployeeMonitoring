@@ -32,7 +32,7 @@ namespace EmployeeMonitoring
            
 
             RegisterRegister.IsEnabled = false;
-            Main.Content = new RegPage(context);
+            //Main.Content = new RegPage(context);
 
         }
 
@@ -90,7 +90,7 @@ namespace EmployeeMonitoring
         {
             try
             {
-                if (string.IsNullOrEmpty(RegisterSalary.Text) || string.IsNullOrWhiteSpace(RegisterEmpName.Text))
+                if (string.IsNullOrEmpty(RegisterSalary.Text) || string.IsNullOrWhiteSpace(RegisterEmpName.Text) || RegisterEmpName.Text.StartsWith(" "))
                 {
                     RegisterRegister.IsEnabled = false;
                 }

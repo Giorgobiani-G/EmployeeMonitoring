@@ -462,21 +462,21 @@ namespace EmployeeMonitoring
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
+            try
+            {
 
                 RegistrationWindow registrationWindow = new RegistrationWindow(context);
                 registrationWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 registrationWindow.ResizeMode = ResizeMode.NoResize;
 
                 registrationWindow.Show();
-                Close();
-            //}
-            //catch (Exception ex)
-            //{
+                Hide();
+            }
+            catch (Exception ex)
+            {
 
-            //  MessageBox.Show(ex.Message);
-            //}
+                MessageBox.Show(ex.Message);
+            }
 
 
         }
