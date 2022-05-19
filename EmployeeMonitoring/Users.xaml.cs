@@ -30,20 +30,20 @@ namespace EmployeeMonitoring
         {
             _context = dbcontext;
             InitializeComponent();
-            Main.Content = new LoginPage(_context);
+            Frame.Content = new LoginPage(_context);
         }
 
          
 
         private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Main.Content = new LoginPage(_context);
+            Frame.Content = new LoginPage(_context);
         }
 
         private void TabItem_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-           
-            Main.Content = new RegPage(_context);
+
+            Frame.Content = new RegPage(_context);
         }
     } 
 }

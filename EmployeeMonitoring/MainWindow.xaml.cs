@@ -29,7 +29,7 @@ namespace EmployeeMonitoring
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 22, 12, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 12, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -462,21 +462,21 @@ namespace EmployeeMonitoring
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
                 RegistrationWindow registrationWindow = new RegistrationWindow(context);
                 registrationWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 registrationWindow.ResizeMode = ResizeMode.NoResize;
 
                 registrationWindow.Show();
-                Hide();
-            }
-            catch (Exception ex)
-            {
+                Close();
+            //}
+            //catch (Exception ex)
+            //{
 
-              MessageBox.Show(ex.Source);
-            }
+            //  MessageBox.Show(ex.Message);
+            //}
 
 
         }

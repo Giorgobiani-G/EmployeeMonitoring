@@ -26,7 +26,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Frame NavigationUIVisibility="Hidden" x:Name="Main" Height="245" Width="545" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="21"   > 
+        <Frame NavigationUIVisibility="Hidden" x:Name="Frame" Height="245" Width="545" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="21"   > 
             
         </Frame>
     </Canvas>

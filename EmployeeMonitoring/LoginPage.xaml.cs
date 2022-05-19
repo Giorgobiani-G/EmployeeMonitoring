@@ -36,18 +36,12 @@ namespace EmployeeMonitoring
 
             if (users)
             {
-
-
-
+                
                 MainWindow mainWindow = new MainWindow(_context);
+                 
                 mainWindow.Show();
 
-                Window win = Application.Current.Windows[0];
-
-                win.Close();
-
-
-
+                Window.GetWindow(this).Hide();
 
             }
 
