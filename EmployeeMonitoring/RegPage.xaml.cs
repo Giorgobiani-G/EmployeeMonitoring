@@ -44,7 +44,7 @@ namespace EmployeeMonitoring
                 UserRegistration userRegistration = new UserRegistration();
                 userRegistration.UserName = UserName.Text;
                 userRegistration.Password = Password.Password;
-                userRegistration.UserRole = RoleBox.SelectedItem.ToString();
+                userRegistration.UserRole = RoleBox.Text;
                 _context.UserRegistrations.Add(userRegistration);
                 _context.SaveChanges();
                 MessageBox.Show("მომხმარებელი წარმატებით დაემატა!", "", MessageBoxButton.OK, MessageBoxImage.Information);

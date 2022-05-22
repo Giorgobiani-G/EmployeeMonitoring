@@ -25,11 +25,13 @@ namespace EmployeeMonitoring
         {
             context = dbcontext;
             InitializeComponent();
+
+
             Closing += Window_Closing;
 
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 12, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 59, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -188,7 +190,7 @@ namespace EmployeeMonitoring
                                 .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault().EmpregisterModelId;
 
                             decimal xelpasisaatshi = context.EmpregisterModels.Where(x => x.EmpregisterModelId == empModel.EmpregisterModelId).AsEnumerable().Select(x => x.Salary / 24 / 8).First();
-                           
+
                             empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
 
                             empModel.ShesvlisDro = DateTime.Now;
@@ -206,7 +208,7 @@ namespace EmployeeMonitoring
                     _ = context.SaveChanges();
 
 
-                   
+
 
                 }
 
@@ -284,7 +286,7 @@ namespace EmployeeMonitoring
             }
 
 
- 
+
 
             _ = await context.AddAsync(emp);
             _ = await context.SaveChangesAsync();
@@ -421,12 +423,12 @@ namespace EmployeeMonitoring
                           db.GacceniliSaatebi != null
                          select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi, Gamosaklebixelpasi = db.GamosaklebiXelpasi };
 
-            
 
-            if (result.Any()==false)
+
+            if (result.Any() == false)
             {
-                
-                MessageBox.Show("ჩანაწერები არ არსებობს!","",MessageBoxButton.OK,MessageBoxImage.Error);
+
+                MessageBox.Show("ჩანაწერები არ არსებობს!", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -454,9 +456,9 @@ namespace EmployeeMonitoring
                     string filename = "GacdeniliSaatebi" + DateTime.Now.ToString("yyyyMMddss") + ".xlsx";
                     File.WriteAllBytes("C:\\Users\\admin\\Desktop\\" + filename, content);
                 }
-                
+
             }
-            MessageBox.Show("რეპორტის ფაილი წარმატებით შეინახა!","",MessageBoxButton.OK,MessageBoxImage.Information);
+            MessageBox.Show("რეპორტის ფაილი წარმატებით შეინახა!", "", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
 
@@ -480,5 +482,43 @@ namespace EmployeeMonitoring
 
 
         }
+
+        private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
+        {
+            userbox.Text = GlobalCustom.CurrentUserName;
+
+            var role = (from db in context.UserRegistrations
+                        where db.UserName == userbox.Text && db.UserRole == "Admin"
+                        select new { role = db.UserRole }).Any();
+            if (role)
+            {
+                EditSalary.IsEnabled = true;
+            }
+            else
+            {
+                EditSalary.IsEnabled = false;
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Users users = new Users(context);
+            users.Show();
+            Hide();
+        }
+
+        private void EditSalary_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            EmpgridWindow empgridWindow = new EmpgridWindow(context);
+            empgridWindow.Show();
+
+        }
+
+        //private void MainWindow1_Initialized(object sender, EventArgs e)
+        //{
+        //    userbox.Text = GlobalCustom.CurrentUserName;
+        //}
     }
 }

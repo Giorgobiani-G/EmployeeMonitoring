@@ -36,12 +36,15 @@ namespace EmployeeMonitoring
 
             if (users)
             {
-                
+                GlobalCustom.CurrentUserName = LoginName.Text;
+
                 MainWindow mainWindow = new MainWindow(_context);
                  
                 mainWindow.Show();
 
                 Window.GetWindow(this).Hide();
+
+                
 
             }
 
