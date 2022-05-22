@@ -68,8 +68,6 @@ namespace EmployeeMonitoring
 
                                 group db by db.Saxeli;
 
-
-
                     #region თუ დასვენების დღე არაა და  რომელიმე თანამშრომელი არ გამოცხედებულა გაცდენილი საათების რაოდენობა უდრის 8 საათს
                     if (query is not null)
                     {
@@ -144,9 +142,6 @@ namespace EmployeeMonitoring
                                 continue;
                             }
 
-
-
-
                             //pirveli shesvlis daanagariseba
                             var pirvelisesvla = shesvlalist[0].Value;
                             var dagvianebiszgvari = DateTime.Parse("16:15");
@@ -207,9 +202,6 @@ namespace EmployeeMonitoring
 
                     _ = context.SaveChanges();
 
-
-
-
                 }
 
                 catch (Exception ex)
@@ -221,14 +213,7 @@ namespace EmployeeMonitoring
                 {
                     Monitor.Exit(outputLock);
                 }
-
-
-            }
-
-
-
-
-
+           }
         }
 
         private int shesvlacountclick;
@@ -254,8 +239,6 @@ namespace EmployeeMonitoring
                 ShesvlisDro = DateTime.Now,
                 EmpregisterModelId = context.EmpregisterModels
                 .Where(sax => sax.EmployeeName == txtbox.Text).FirstOrDefault().EmpregisterModelId
-
-
             };
 
 
@@ -285,13 +268,9 @@ namespace EmployeeMonitoring
 
             }
 
-
-
-
             _ = await context.AddAsync(emp);
             _ = await context.SaveChangesAsync();
-
-        }
+         }
 
 
         private int gasvlacountclick;
@@ -333,7 +312,6 @@ namespace EmployeeMonitoring
                 return;
             }
 
-
             gasvlacountclick++;
 
             if (gasvlacountclick > 1 && gasvlascopeentered == false)
@@ -345,8 +323,6 @@ namespace EmployeeMonitoring
                 timer.AutoReset = false;
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
-
-
                 gasvlacountclick = 0;
                 return;
             }
@@ -359,9 +335,7 @@ namespace EmployeeMonitoring
                 timer.Elapsed += Gaslacountclicknull;
 
                 timer.Start();
-
             }
-
 
             await context.AddAsync(emp);
             await context.SaveChangesAsync();
@@ -377,12 +351,8 @@ namespace EmployeeMonitoring
             //Whenever you update your UI elements from a thread other than the main thread, you need to use this:
             Dispatcher.Invoke(() =>
                 {
-
-                    inouttextbox.Clear();
-
+                   inouttextbox.Clear();
                 });
-
-
         }
 
         private void Shesvlacountclicknull(object sender, System.Timers.ElapsedEventArgs e)
@@ -422,8 +392,6 @@ namespace EmployeeMonitoring
                           db.ShesvlisDro.Value.Date <= enddate &&
                           db.GacceniliSaatebi != null
                          select new { Name = db.Saxeli, Tarigi = db.ShesvlisDro.Value.Date.ToShortDateString(), Gacdenilisaatebi = db.GacceniliSaatebi, Gamosaklebixelpasi = db.GamosaklebiXelpasi };
-
-
 
             if (result.Any() == false)
             {
@@ -466,7 +434,6 @@ namespace EmployeeMonitoring
         {
             try
             {
-
                 RegistrationWindow registrationWindow = new RegistrationWindow(context);
                 registrationWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 registrationWindow.ResizeMode = ResizeMode.NoResize;
@@ -479,8 +446,6 @@ namespace EmployeeMonitoring
 
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
@@ -509,16 +474,9 @@ namespace EmployeeMonitoring
 
         private void EditSalary_Click(object sender, RoutedEventArgs e)
         {
-
-
             EmpgridWindow empgridWindow = new EmpgridWindow(context);
             empgridWindow.Show();
-
         }
-
-        //private void MainWindow1_Initialized(object sender, EventArgs e)
-        //{
-        //    userbox.Text = GlobalCustom.CurrentUserName;
-        //}
+ 
     }
 }

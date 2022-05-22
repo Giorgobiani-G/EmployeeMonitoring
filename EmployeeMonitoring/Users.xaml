@@ -9,7 +9,7 @@
     <Canvas Background="#FFC6C6C6" Margin="0,1,0,-34">
 
         <TabControl Height="267" Width="543" Background="Gray">
-            <TabItem MouseUp="TabItem_MouseDoubleClick"  Header="TabItem" Margin="-2,-2,-2,0" Height="20" VerticalAlignment="Top">
+            <TabItem MouseUp="TabItem_MouseDoubleClick"  Header="Login" Margin="-2,-2,-2,0" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFC6C6C6" Margin="-4,-3,-4,-2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="17*"/>
@@ -17,7 +17,7 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" MouseUp="TabItem_MouseDoubleClick_1">
+            <TabItem Header="Register" MouseUp="TabItem_MouseDoubleClick_1">
                 <Grid Background="#FFC6C6C6" Margin="-5,-4,-3,-2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="38*"/>
