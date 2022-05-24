@@ -26,9 +26,7 @@ namespace EmployeeMonitoring
             context = dbcontext;
             InitializeComponent();
 
-
-            Closing += Window_Closing;
-
+             
 
             DateTime time = DateTime.Now;
             DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 59, 0);
@@ -38,14 +36,9 @@ namespace EmployeeMonitoring
             timer.Enabled = false;
             timer.AutoReset = false;
             timer.Start();
-
-
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+         
 
         private readonly object outputLock = new();
 
@@ -199,9 +192,7 @@ namespace EmployeeMonitoring
                         }
 
                     }
-
                     _ = context.SaveChanges();
-
                 }
 
                 catch (Exception ex)
@@ -213,7 +204,7 @@ namespace EmployeeMonitoring
                 {
                     Monitor.Exit(outputLock);
                 }
-           }
+            }
         }
 
         private int shesvlacountclick;
@@ -265,12 +256,11 @@ namespace EmployeeMonitoring
                 timer.Elapsed += Shesvlacountclicknull;
 
                 timer.Start();
-
             }
 
             _ = await context.AddAsync(emp);
             _ = await context.SaveChangesAsync();
-         }
+        }
 
 
         private int gasvlacountclick;
@@ -295,7 +285,6 @@ namespace EmployeeMonitoring
                 WasvlisDro = DateTime.Now,
                 EmpregisterModelId = context.EmpregisterModels
                 .Where(sax => sax.EmployeeName == txtbox.Text).FirstOrDefault().EmpregisterModelId
-
             };
 
             //pirveli gasvla shemtxvevashi  gasvla arunda ikos semosvlis gareshe 
@@ -340,7 +329,6 @@ namespace EmployeeMonitoring
             await context.AddAsync(emp);
             await context.SaveChangesAsync();
 
-
         }
 
 
@@ -351,7 +339,7 @@ namespace EmployeeMonitoring
             //Whenever you update your UI elements from a thread other than the main thread, you need to use this:
             Dispatcher.Invoke(() =>
                 {
-                   inouttextbox.Clear();
+                    inouttextbox.Clear();
                 });
         }
 
@@ -477,6 +465,10 @@ namespace EmployeeMonitoring
             EmpgridWindow empgridWindow = new EmpgridWindow(context);
             empgridWindow.Show();
         }
- 
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

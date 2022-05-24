@@ -14,6 +14,7 @@ namespace EmployeeMonitoring.Model
     {
         private string _employeeName="emp";
         private decimal _salary;
+        private bool _isactive;
 
         [Key]
         public int EmpregisterModelId { get; set; }
@@ -32,10 +33,7 @@ namespace EmployeeMonitoring.Model
                 OnPropertyChanged("EmployeeName");
                 
             }
-
         }
-
-
 
         public decimal Salary
         {
@@ -49,6 +47,18 @@ namespace EmployeeMonitoring.Model
             }
         }
 
+        
+
+        public bool Isactive
+        {
+            get => _isactive;
+
+            set
+            {
+               _isactive = value;
+               OnPropertyChanged("Isactive");
+            }
+        }
 
 
         public List<EmpModel> EmpModels { get; set; }

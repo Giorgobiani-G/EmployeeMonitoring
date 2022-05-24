@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeMonitoring"
         mc:Ignorable="d"
-        Title="UserRegistration" Height="250" Width="543" x:Name="UserregWin"   FontWeight="Normal"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="UserRegistration" Height="250" Width="543" x:Name="UserregWin"   FontWeight="Normal"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="UserregWin_Closed">
     <Canvas Background="#FFC6C6C6" Margin="0,1,0,-34">
 
         <TabControl Height="267" Width="543" Background="Gray">

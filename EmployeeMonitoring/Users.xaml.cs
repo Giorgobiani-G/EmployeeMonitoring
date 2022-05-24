@@ -24,8 +24,6 @@ namespace EmployeeMonitoring
 
         private readonly EmpContext _context;
 
-
-
         public Users(EmpContext dbcontext)
         {
             _context = dbcontext;
@@ -33,7 +31,6 @@ namespace EmployeeMonitoring
             Frame.Content = new LoginPage(_context);
         }
 
-         
 
         private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -45,5 +42,10 @@ namespace EmployeeMonitoring
 
             Frame.Content = new RegPage(_context);
         }
-    } 
+
+        private void UserregWin_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+    }
 }

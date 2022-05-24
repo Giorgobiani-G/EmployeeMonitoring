@@ -48,16 +48,12 @@ namespace EmployeeMonitoring
                 _context.UserRegistrations.Add(userRegistration);
                 _context.SaveChanges();
                 MessageBox.Show("მომხმარებელი წარმატებით დაემატა!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-
             }
         }
 
-
-
         private void UserName_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password)||UserName.Text.StartsWith(" "))
+            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password) || UserName.Text.StartsWith(" "))
             {
                 UserRegister.IsEnabled = false;
             }
@@ -68,10 +64,9 @@ namespace EmployeeMonitoring
         }
 
 
-
         private void Password_PasswordChanged_1(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password)||Password.Password.StartsWith(" "))
+            if (string.IsNullOrWhiteSpace(UserName.Text) || string.IsNullOrWhiteSpace(Password.Password) || Password.Password.StartsWith(" "))
             {
                 UserRegister.IsEnabled = false;
             }

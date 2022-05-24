@@ -1,15 +1,28 @@
-﻿<Window x:Class="EmployeeMonitoring.EmpgridWindow"
+﻿<Window x:Name="gridwindow" x:Class="EmployeeMonitoring.EmpgridWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EmployeeMonitoring"
+        xmlns:local="clr-namespace:EmployeeMonitoring.Model"
         mc:Ignorable="d"
-        Title="EmpgridWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-
+        Title="EmpgridWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+    <Window.Resources>
+        <local:EmpregisterModel x:Key="db"></local:EmpregisterModel>
+    </Window.Resources>
     <Grid x:Name="Empgrid" >
-        <DataGrid x:Name="GridData"  Loaded="GridData_Loaded" ColumnWidth="*" AutoGenerateColumns="True" CanUserAddRows="False" Margin="590,0,23,60" SelectionChanged="GridData_SelectionChanged">
-
+        <DataGrid x:Name="GridData" ItemsSource="{Binding Source={StaticResource db}}"  Loaded="GridData_Loaded" ColumnWidth="*" AutoGenerateColumns="False" CanUserAddRows="False" Margin="590,0,15,60" SelectionChanged="GridData_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding EmpregisterModelId}"  />
+                <DataGridTextColumn Header="Name" Binding="{Binding EmployeeName}"  />
+                <DataGridTextColumn Header="Salary" Binding="{Binding Salary}"  />
+                <DataGridTemplateColumn Header="Isactive">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Isactive, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
         </DataGrid>
         <Label Content="ID" HorizontalAlignment="Left" Margin="192,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Salary" HorizontalAlignment="Left" Margin="190,219,0,0" VerticalAlignment="Top"/>
@@ -18,6 +31,7 @@
         <TextBox x:Name="gridboxname" HorizontalAlignment="Left" Margin="300,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="gridboxsalary" HorizontalAlignment="Left" Margin="298,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="EditSalarybtn" Content="Edit" HorizontalAlignment="Left" Margin="263,293,0,0" VerticalAlignment="Top" Background="#FF15CA1D" Width="50" Click="Button_Click"/>
+        <TextBox x:Name="editresult" HorizontalAlignment="Left" Margin="307,363,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" BorderBrush="White" />
 
     </Grid>
 </Window>

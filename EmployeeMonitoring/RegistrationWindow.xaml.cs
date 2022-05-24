@@ -28,7 +28,7 @@ namespace EmployeeMonitoring
         {
             context = dbcontext;
             InitializeComponent();
-            Closing += Window_Closing;
+            
            
 
             RegisterRegister.IsEnabled = false;
@@ -36,11 +36,7 @@ namespace EmployeeMonitoring
 
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
+        
         private void RegistrationWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             throw new NotImplementedException();
@@ -48,8 +44,6 @@ namespace EmployeeMonitoring
 
         private void RegisterRegister_Click(object sender, RoutedEventArgs e)
         {
-
-
 
             var exits = (from db in context.EmpregisterModels
                          where db.EmployeeName == RegisterEmpName.Text
@@ -61,27 +55,21 @@ namespace EmployeeMonitoring
             }
             else
             {
-
                 EmpregisterModel empregisterModel = new();
                 empregisterModel.EmployeeName = RegisterEmpName.Text;
                 empregisterModel.Salary = decimal.Parse(RegisterSalary.Text, System.Globalization.CultureInfo.InvariantCulture);
+                empregisterModel.Isactive = true;
                 context.Add(empregisterModel);
                 context.SaveChanges();
                 MessageBox.Show("თანამშრომელი წარმატებით დაემატა!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-
-
         }
 
         private void Main_Click(object sender, RoutedEventArgs e)
         {
-
-
             MainWindow mainWindow = new MainWindow(context);
             mainWindow.Show();
-            Hide();
-
+            Regwindow.Hide();
         }
 
          
@@ -104,14 +92,14 @@ namespace EmployeeMonitoring
 
                 MessageBox.Show(ex.Message);
             }
-
         }
+
 
         private void RegisterSalary_TextChanged(object sender, TextChangedEventArgs e)
         {
 
             try
-            {
+           {
                 if (string.IsNullOrEmpty(RegisterEmpName.Text) ||
                     Regex.IsMatch(RegisterSalary.Text, @"^(0|[1-9]\d*)(\.\d{1,2})?$") == false) // მხოლოდ იღებს  int-ს და decimal-ს წერტილის შემდეგ 2 თანრიგით.
                 {
@@ -129,7 +117,12 @@ namespace EmployeeMonitoring
 
                 MessageBox.Show(ex.Message);
             }
-
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
     }
 }

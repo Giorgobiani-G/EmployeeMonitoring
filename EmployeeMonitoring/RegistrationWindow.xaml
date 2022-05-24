@@ -1,4 +1,4 @@
-﻿<Window x:Class="EmployeeMonitoring.RegistrationWindow"
+﻿<Window x:Name="Regwindow" x:Class="EmployeeMonitoring.RegistrationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
        xmlns:m ="clr-namespace:EmployeeMonitoring.Model"
         mc:Ignorable="d"
         
-        Title="Registration" Height="250" Width="543"    FontWeight="Normal"  ResizeMode="CanMinimize" WindowStartupLocation="Manual">
+        Title="Registration" Height="250" Width="543"    FontWeight="Normal"  ResizeMode="CanMinimize" WindowStartupLocation="Manual" >
     <Window.Resources>
         <m:EmpregisterModel x:Key="KK"/>
 

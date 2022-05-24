@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Main" Height="400" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF0EDED" ResizeMode="CanMinimize">
+        Title="Main" Height="400" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF0EDED" ResizeMode="CanMinimize" Closed="Window_Closed">
     <Grid x:Name="MainWindow1" Margin="0,0,0,-1" Background="#FFC6C6C6" Loaded="MainWindow1_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="178*"/>

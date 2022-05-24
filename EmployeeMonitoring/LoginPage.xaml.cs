@@ -31,7 +31,7 @@ namespace EmployeeMonitoring
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             var users = (from db in _context.UserRegistrations
-                        where db.UserName==LoginName.Text&&db.Password==LoginPass.Password
+                         where db.UserName == LoginName.Text && db.Password == LoginPass.Password
                          select db).Any();
 
             if (users)
@@ -39,13 +39,10 @@ namespace EmployeeMonitoring
                 GlobalCustom.CurrentUserName = LoginName.Text;
 
                 MainWindow mainWindow = new MainWindow(_context);
-                 
+
                 mainWindow.Show();
 
                 Window.GetWindow(this).Hide();
-
-                
-
             }
 
             else
