@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using EmployeeMonitoring.Data;
 using EmployeeMonitoring.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace EmployeeMonitoring
              
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 23, 59, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 11, 48, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -55,7 +56,7 @@ namespace EmployeeMonitoring
                 {
 
 
-                    var query = from db in context.MyProperty.AsEnumerable()
+                    var query = from db in context.MyProperty.Where(i=>i.EmpregisterModel.Isactive==true).AsEnumerable()
                                 where (db.ShesvlisDro.HasValue && db.ShesvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
                                 || (db.WasvlisDro.HasValue && db.WasvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
 
@@ -64,12 +65,12 @@ namespace EmployeeMonitoring
                     #region თუ დასვენების დღე არაა და  რომელიმე თანამშრომელი არ გამოცხედებულა გაცდენილი საათების რაოდენობა უდრის 8 საათს
                     if (query is not null)
                     {
-                        foreach (var item in query)
-                        {
-                            var contains = context.EmpregisterModels.Where(n => n.EmpregisterModelId != item
-                            .Select(it => it.EmpregisterModelId).FirstOrDefault()).AsEnumerable();
 
-                            if (contains is not null)
+                        HashSet<string> keys = new HashSet<string>(query.Select(k => k.Key));
+                        var contains = context.EmpregisterModels.Where(m => !keys.Contains(m.EmployeeName)).Where(m=>m.Isactive==true).AsEnumerable();
+
+                          
+                        if (contains is not null)
                             {
                                 foreach (var coll in contains)
                                 {
@@ -78,7 +79,7 @@ namespace EmployeeMonitoring
                                     empModel.Saxeli = coll.EmployeeName;
                                     empModel.ShesvlisDro = DateTime.Now;
                                     empModel.GacceniliSaatebi = 8;
-                                    decimal xelpasisaatshi = context.EmpregisterModels.Where(x => x.EmpregisterModelId == empModel.EmpregisterModelId).AsEnumerable().Select(x => x.Salary / 24 / 8).First();
+                                    decimal xelpasisaatshi = coll.Salary / 24 / 8;
                                     empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
                                     empModel.EmpregisterModelId = coll.EmpregisterModelId;
 
@@ -89,7 +90,7 @@ namespace EmployeeMonitoring
                                 context.SaveChanges();
                             }
 
-                        }
+                        
                     }
                     #endregion
 
@@ -174,10 +175,12 @@ namespace EmployeeMonitoring
                                 }
 
                             }
-                            empModel.EmpregisterModelId = context.EmpregisterModels
-                                .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault().EmpregisterModelId;
+                            var data = context.EmpregisterModels
+                                .Where(sax => sax.EmployeeName == empModel.Saxeli).FirstOrDefault();
 
-                            decimal xelpasisaatshi = context.EmpregisterModels.Where(x => x.EmpregisterModelId == empModel.EmpregisterModelId).AsEnumerable().Select(x => x.Salary / 24 / 8).First();
+                            empModel.EmpregisterModelId = data.EmpregisterModelId;
+
+                            decimal xelpasisaatshi = data.Salary / 24 / 8;
 
                             empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
 

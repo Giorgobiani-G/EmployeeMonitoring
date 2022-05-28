@@ -26,7 +26,8 @@ namespace EmployeeMonitoring.Model
 
 
         public int EmpregisterModelId { get; set; }
-        public EmpregisterModel EmpregisterModel { get; set; }
+        public virtual EmpregisterModel EmpregisterModel { get; set; }
+         
 
     }
 }

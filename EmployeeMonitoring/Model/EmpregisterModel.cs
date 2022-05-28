@@ -61,7 +61,7 @@ namespace EmployeeMonitoring.Model
         }
 
 
-        public List<EmpModel> EmpModels { get; set; }
+        public virtual List<EmpModel> EmpModels { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
