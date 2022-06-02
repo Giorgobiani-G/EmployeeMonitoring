@@ -31,7 +31,7 @@
         <TextBox x:Name="gridboxname" HorizontalAlignment="Left" Margin="300,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="gridboxsalary" HorizontalAlignment="Left" Margin="298,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="EditSalarybtn" Content="Edit" HorizontalAlignment="Left" Margin="263,293,0,0" VerticalAlignment="Top" Background="#FF15CA1D" Width="50" Click="Button_Click"/>
-        <TextBox x:Name="editresult" HorizontalAlignment="Left" Margin="307,363,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" BorderBrush="White" />
+        <TextBox x:Name="editresult" HorizontalAlignment="Left" Margin="281,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="266" IsEnabled="False" BorderBrush="White" FontWeight="Bold" Foreground="#FF0E22AE" FontSize="14" />
 
     </Grid>
 </Window>

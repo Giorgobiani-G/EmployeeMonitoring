@@ -20,6 +20,9 @@ namespace EmployeeMonitoring
     public partial class MainWindow : Window
     {
         private readonly EmpContext context;
+        List<string> list = new List<string>();
+        List<string> list12 = new List<string>();
+        List<string> list2 = new List<string>() { "5", "10", "15", "20", "25", "30" };
 
 
         public MainWindow(EmpContext dbcontext)
@@ -27,10 +30,38 @@ namespace EmployeeMonitoring
             context = dbcontext;
             InitializeComponent();
 
-             
+            for (int i = 0; i <= 24; i++)
+            {
+                list.Add(i.ToString() + ":" + "00");
+                if (i != 24)
+                {
+                    list.Add(i.ToString() + ":" + "30");
+                }
+
+
+            }
+
+           int index = list.FindIndex(a => a.Contains(stcombo.SelectedValuePath.ToString()));
+            for (int i = index; i < 24; i++)
+            {
+                list12.Add(i.ToString() + ":" + "00");
+                if (i != 24)
+                {
+                    list12.Add(i.ToString() + ":" + "30");
+                }
+
+            }
+
+            stcombo.ItemsSource = list;
+            endcombo.ItemsSource = list12;
+            mrgcombo.ItemsSource = list2;
+            stcombo.SelectedValue = Properties.Settings.Default.StartTime;
+            endcombo.SelectedValue = Properties.Settings.Default.EndTIme;
+            mrgcombo.SelectedValue = Properties.Settings.Default.Margin;
+            Properties.Settings.Default.Save();
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 11, 48, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 22, 55, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -39,62 +70,60 @@ namespace EmployeeMonitoring
             timer.Start();
         }
 
-         
+
 
         private readonly object outputLock = new();
 
         private void Daangarisheba(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //You can use a lock object in combination with Monitor.TryEnter.
-            //Only one thread at at time will be allowed into the Monitor.TryEnter block.
-            //If a thread arrives here while another thread is inside, then Monitor.TryEnter returns false.
-
-            if (Monitor.TryEnter(outputLock))
+             
+            Dispatcher.Invoke(() =>
             {
-
+                var transaction = context.Database.BeginTransaction();
                 try
                 {
+                   
 
+                    var query = (from db in context.MyProperty.Where(i => i.EmpregisterModel.Isactive == true).AsEnumerable()
+                                 where (db.ShesvlisDro.HasValue && db.ShesvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
+                                 || (db.WasvlisDro.HasValue && db.WasvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
 
-                    var query = from db in context.MyProperty.Where(i=>i.EmpregisterModel.Isactive==true).AsEnumerable()
-                                where (db.ShesvlisDro.HasValue && db.ShesvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
-                                || (db.WasvlisDro.HasValue && db.WasvlisDro.Value.Date == DateTime.Now.Date && db.GacceniliSaatebi == null)
-
-                                group db by db.Saxeli;
+                                 group db by db.Saxeli).ToList();
 
                     #region თუ დასვენების დღე არაა და  რომელიმე თანამშრომელი არ გამოცხედებულა გაცდენილი საათების რაოდენობა უდრის 8 საათს
                     if (query is not null)
                     {
 
                         HashSet<string> keys = new HashSet<string>(query.Select(k => k.Key));
-                        var contains = context.EmpregisterModels.Where(m => !keys.Contains(m.EmployeeName)).Where(m=>m.Isactive==true).AsEnumerable();
+                        var contains = (context.EmpregisterModels.Where(m => !keys.Contains(m.EmployeeName))
+                                                                .Where(m => m.Isactive == true).ToList());
 
-                          
+
                         if (contains is not null)
+                        {
+                            foreach (var coll in contains)
                             {
-                                foreach (var coll in contains)
-                                {
-                                    EmpModel empModel = new EmpModel();
+                                EmpModel empModel = new EmpModel();
 
-                                    empModel.Saxeli = coll.EmployeeName;
-                                    empModel.ShesvlisDro = DateTime.Now;
-                                    empModel.GacceniliSaatebi = 8;
-                                    decimal xelpasisaatshi = coll.Salary / 24 / 8;
-                                    empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
-                                    empModel.EmpregisterModelId = coll.EmpregisterModelId;
+                                empModel.Saxeli = coll.EmployeeName;
+                                empModel.ShesvlisDro = DateTime.Now;
+                                empModel.GacceniliSaatebi = 8;
+                                decimal xelpasisaatshi = coll.Salary / 24 / 8;
+                                empModel.GamosaklebiXelpasi = xelpasisaatshi * (decimal)empModel.GacceniliSaatebi;
+                                empModel.EmpregisterModelId = coll.EmpregisterModelId;
 
-                                    context.Add(empModel);
-                                }
-
-
-                                context.SaveChanges();
+                                context.Add(empModel);
                             }
 
-                        
+
+                            context.SaveChanges();
+                        }
+
+
                     }
                     #endregion
 
-
+                    throw new Exception();
                     foreach (IGrouping<string, EmpModel> item in query)
                     {
 
@@ -138,11 +167,13 @@ namespace EmployeeMonitoring
 
                             //pirveli shesvlis daanagariseba
                             var pirvelisesvla = shesvlalist[0].Value;
-                            var dagvianebiszgvari = DateTime.Parse("16:15");
+                            int indexone = stcombo.Text.IndexOf(":");
+                            string subone = stcombo.Text.Substring(0, indexone+1);
+                            var dagvianebiszgvari = DateTime.Parse(subone + mrgcombo.Text);
                             int daagviana = DateTime.Compare(pirvelisesvla, dagvianebiszgvari);
                             if (daagviana > 0)
                             {
-                                TimeSpan timeSpan = pirvelisesvla - DateTime.Parse("09:00");
+                                TimeSpan timeSpan = pirvelisesvla - DateTime.Parse(stcombo.Text);
                                 empModel.GacceniliSaatebi = timeSpan.TotalHours;
                             }
                             else
@@ -152,11 +183,13 @@ namespace EmployeeMonitoring
 
                             //bolo gasvlis daanagariseba
                             var bologasvla = gasvlalist[gasvlalist.Count - 1].Value;
-                            var adregasvliszgvari = DateTime.Parse("22:30");
+                            int indextwo = endcombo.Text.IndexOf(":");
+                            string subtwo = endcombo.Text.Substring(0, indextwo+1);
+                            var adregasvliszgvari = DateTime.Parse(subtwo + mrgcombo.Text);
                             int adregavida = DateTime.Compare(bologasvla, adregasvliszgvari);
                             if (adregavida < 0)
                             {
-                                TimeSpan timeSpan = DateTime.Parse("18:00") - bologasvla;
+                                TimeSpan timeSpan = DateTime.Parse(endcombo.Text) - bologasvla;
                                 empModel.GacceniliSaatebi += timeSpan.TotalHours;
                             }
 
@@ -196,18 +229,19 @@ namespace EmployeeMonitoring
 
                     }
                     _ = context.SaveChanges();
+
+                    transaction.Commit();
+
                 }
 
                 catch (Exception ex)
                 {
+                    transaction.Rollback();
                     MessageBox.Show(ex.Message + ex.Source);
                 }
 
-                finally
-                {
-                    Monitor.Exit(outputLock);
-                }
-            }
+            });
+
         }
 
         private int shesvlacountclick;
@@ -472,6 +506,24 @@ namespace EmployeeMonitoring
         private void Window_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void stcombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Properties.Settings.Default.StartTime = stcombo.SelectedValue.ToString();
+            Properties.Settings.Default.Save();
+        }
+
+        private void endcombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Properties.Settings.Default.EndTIme = endcombo.SelectedValue.ToString();
+            Properties.Settings.Default.Save();
+        }
+
+        private void mrgcombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Properties.Settings.Default.Margin = mrgcombo.SelectedValue.ToString();
+            Properties.Settings.Default.Save();
         }
     }
 }

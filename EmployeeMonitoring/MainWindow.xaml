@@ -28,6 +28,12 @@
         <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="252,11,0,0" Text="User:" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" BorderBrush="White" Grid.Column="2" Height="19"/>
         <Button Grid.Column="2" Content="LogOut" HorizontalAlignment="Left" Margin="419,12,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="49" Background="#FFC6C6C6" BorderBrush="#FFC6C6C6" Foreground="#FF193CDA" FontWeight="Bold" Click="Button_Click_1"/>
         <Button x:Name="EditSalary" Content="       Edit &#xD;&#xA;EmpSalaRy" HorizontalAlignment="Left" Margin="7,53,0,0" VerticalAlignment="Top" Width="86" Height="39"  Background="#FF28B925" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="EditSalary_Click"/>
+        <ComboBox x:Name="stcombo" HorizontalAlignment="Left" Margin="17,137,0,0" VerticalAlignment="Top" Width="63" SelectionChanged="stcombo_SelectionChanged"/>
+        <ComboBox x:Name="endcombo" HorizontalAlignment="Left" Margin="17,201,0,0" VerticalAlignment="Top" Width="63" SelectionChanged="endcombo_SelectionChanged"/>
+        <ComboBox x:Name="mrgcombo" HorizontalAlignment="Left" Margin="17,260,0,0" VerticalAlignment="Top" Width="63" SelectionChanged="mrgcombo_SelectionChanged"/>
+        <Label x:Name="sttime" Content="Start Time" HorizontalAlignment="Left" Margin="14,104,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="End TIme" HorizontalAlignment="Left" Margin="19,166,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="margin" Content="Margin" HorizontalAlignment="Left" Margin="23,227,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
 
     </Grid>
 </Window>
