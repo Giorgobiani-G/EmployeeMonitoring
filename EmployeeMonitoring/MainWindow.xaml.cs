@@ -61,7 +61,7 @@ namespace EmployeeMonitoring
             Properties.Settings.Default.Save();
 
             DateTime time = DateTime.Now;
-            DateTime target = new DateTime(time.Year, time.Month, time.Day, 22, 55, 0);
+            DateTime target = new DateTime(time.Year, time.Month, time.Day, 18, 48, 0);
             double interval = (target - DateTime.Now).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
             timer.Elapsed += Daangarisheba;
@@ -79,6 +79,15 @@ namespace EmployeeMonitoring
              
             Dispatcher.Invoke(() =>
             {
+                DateTime sttime = DateTime.Parse(stcombo.Text);
+                DateTime endtime = DateTime.Parse(endcombo.Text);
+                var result = DateTime.Compare(sttime, endtime);
+                if (result > 0)
+                {
+                    MessageBox.Show("დრო არასწორადაა მითითებული!","",MessageBoxButton.OK,MessageBoxImage.Error);
+                    return;
+                }
+
                 var transaction = context.Database.BeginTransaction();
                 try
                 {
@@ -122,8 +131,7 @@ namespace EmployeeMonitoring
 
                     }
                     #endregion
-
-                    throw new Exception();
+ 
                     foreach (IGrouping<string, EmpModel> item in query)
                     {
 
